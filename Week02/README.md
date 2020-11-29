@@ -1,14 +1,26 @@
-学习笔记
+## 学习笔记
 
 - Packages that are reusable across many projects only return root error values.
 - If the error is not going to be handled, wrap and return up the call stack.
 - Once an error is handled, it is not allowed to be passed up the call stack any longer.
 
-如何跑这个应用？
+## 如何跑这个应用？
 
 ```
 go run cmd/main.go
 ```
 启动之后，直接在浏览器访问: http://localhost:8080/user/:id
 
-加了10% random DB Error, 遇到这种error 会打印stacktrace, 如果确认是sql.ErrNoRows则无需打印整个stack trace, 只要打印一下log 是找不到user 即可。 
+加了10% random DB Error, 遇到这种error 会打印stacktrace, 如果确认是sql.ErrNoRows则无需打印整个stack trace, 只要打印一下log 是找不到user 即可。
+
+### 测试用例：
+400 Response: http://localhost:8080/user/notvalid
+404 Response: http://localhost:8080/user/1000
+200 Response: http://localhost:8080/user/1   90% 几率
+500 Response: http://localhost:8080/user/1   10% 几率
+
+## 作业题目：
+我们在数据库操作的时候，比如 dao 层中当遇到一个 sql.ErrNoRows 的时候，是否应该 Wrap 这个 error，抛给上层。为什么，应该怎么做请写出代码？
+
+答：按照和第三方包交互出现error需要wrap并返回上层处理的原则，应该wrap 并抛给上层。服务层不需要处理，直接抛给最上层的controller 做最后的处理。
+
