@@ -19,6 +19,7 @@ go run cmd/main.go
 1. 404 Response: http://localhost:8080/user/1000
 1. 200 Response: http://localhost:8080/user/1   90% 几率
 1. 500 Response: http://localhost:8080/user/1   10% 几率
+1. Recovery Protection: http://localhost:8080/user/-1
 
 
 ## 作业题目：

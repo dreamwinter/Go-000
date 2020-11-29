@@ -40,13 +40,18 @@ var userStoreInMemory = []User{
 
 // GetUser is the function to find the user with given id
 func GetUser(id int64) (User, error) {
-	// add random db error, 10% chance to hit this error
-	if rand.Intn(10) == 1 {
-		return User{}, errors.Wrap(fmt.Errorf("Unknow DB Error"), "Random error happened")
+	// simulate out of index runtime panic
+	if id == -1 {
+		return userStoreInMemory[100], nil
 	}
+
 	// simulate sql call
 	for _, user := range userStoreInMemory {
 		if user.ID == id {
+			// add random db error, 10% chance to hit this error
+			if rand.Intn(10) == 1 {
+				return User{}, errors.Wrap(fmt.Errorf("Unknow DB Error"), "Random error happened")
+			}
 			return user, nil
 		}
 	}
