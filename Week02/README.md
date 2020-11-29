@@ -14,10 +14,12 @@ go run cmd/main.go
 加了10% random DB Error, 遇到这种error 会打印stacktrace, 如果确认是sql.ErrNoRows则无需打印整个stack trace, 只要打印一下log 是找不到user 即可。
 
 ### 测试用例：
-400 Response: http://localhost:8080/user/notvalid
-404 Response: http://localhost:8080/user/1000
-200 Response: http://localhost:8080/user/1   90% 几率
-500 Response: http://localhost:8080/user/1   10% 几率
+
+1. 400 Response: http://localhost:8080/user/notvalid
+1. 404 Response: http://localhost:8080/user/1000
+1. 200 Response: http://localhost:8080/user/1   90% 几率
+1. 500 Response: http://localhost:8080/user/1   10% 几率
+
 
 ## 作业题目：
 我们在数据库操作的时候，比如 dao 层中当遇到一个 sql.ErrNoRows 的时候，是否应该 Wrap 这个 error，抛给上层。为什么，应该怎么做请写出代码？
