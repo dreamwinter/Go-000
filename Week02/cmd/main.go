@@ -47,6 +47,7 @@ func GetUserHander(userService service.UserService) func(c *gin.Context) {
 }
 
 func main() {
+	// Default already use Logger(), Recovery() middleware
 	r := gin.Default()
 	// initialize userService instance
 	userService, err := service.NewUserService(service.UserServiceInMemoryType)
