@@ -1,8 +1,6 @@
 package main
 
 import (
-	"database/sql"
-	"errors"
 	"log"
 	"net/http"
 	"strconv"
@@ -27,7 +25,7 @@ func GetUserHander(userService service.UserService) func(c *gin.Context) {
 		log.Printf("[GetUser] Request id: %v", id)
 		user, err := userService.GetUser(id)
 		if err != nil {
-			if errors.Is(err, sql.ErrNoRows) {
+			if service.IsUserNotFound(err) {
 				log.Printf("Cannot find the user with id: %v", id)
 				c.JSON(http.StatusNotFound, gin.H{
 					"Message": "Cannot find the user",
