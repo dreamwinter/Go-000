@@ -8,7 +8,7 @@ import (
 	"xll.com/go-000/Week02/internal/service"
 
 	"github.com/gin-gonic/gin"
-	xerrors "github.com/pkg/errors"
+	"github.com/pkg/errors"
 )
 
 // GetUserHander creates the UserHandler
@@ -32,7 +32,7 @@ func GetUserHander(userService service.UserService) func(c *gin.Context) {
 				})
 
 			} else {
-				log.Printf("Encountered error: %T %v\n", xerrors.Cause(err), xerrors.Cause(err))
+				log.Printf("Encountered error: %T %v\n", errors.Cause(err), errors.Cause(err))
 				log.Printf("Stack trace:\n%+v", err)
 				c.JSON(http.StatusInternalServerError, gin.H{
 					"Message": "Server Internal Error",
@@ -51,6 +51,7 @@ func main() {
 	// initialize userService instance
 	userService, err := service.NewUserService(service.UserServiceInMemoryType)
 	if err != nil {
+		// if user service cannot be initialized, here we need exit and report fatal error
 		log.Fatalf("Cannot initialize userService due to: %v", err)
 	}
 	r.GET("/user/:id", GetUserHander(userService))
