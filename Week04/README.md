@@ -15,3 +15,13 @@ Google API Design Guide: [https://cloud.google.com/apis/design/standard_methods]
 没有花时间写test， 只是一个collision 检测逻辑有点复杂所以写了一些happy path 的测试
 
 基于数据库的测试并行一直有些疑问，不知怎么做比较好。
+
+Run Server：
+```
+go run cmd/serverd/main.go cmd/serverd/wire_gen.go
+```
+
+Run Client:
+```
+go run cmd/cli/main.go
+```
