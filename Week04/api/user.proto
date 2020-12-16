@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "xll.com/go-000/Week04/api";
+
+package user;
+
+// The user service definition.
+service User {
+  rpc CreateUser (CreateUserReq) returns (CreateUserRes) {}
+  rpc GetUser(GetUserReq) returns (GetUserRes) {}
+  rpc UpdateUser (UpdateUserReq) returns (UpdateUserRes) {}
+  rpc DeleteUser (DeleteUserReq) returns (DeleteUserRes) {}
+  rpc ListUsers(ListUsersReq) returns (stream ListUsersRes){}
+}
+
+
+message UserMessage {
+    string id = 1;
+    string name = 2;
+    string gender = 3;
+    int32 age = 4;
+}
+
+message CreateUserReq {
+    UserMessage user = 1;
+}
+
+message CreateUserRes {
+    UserMessage user = 1;
+}
+
+message GetUserReq {
+    string id = 1;
+}
+
+message GetUserRes {
+    UserMessage user = 1;
+}
+
+message UpdateUserReq {
+    UserMessage user = 1;
+}
+
+message UpdateUserRes {
+    UserMessage user = 1;
+}
+
+message DeleteUserReq {
+    string id = 1;
+}
+
+message DeleteUserRes {
+    bool success = 1;
+}
+
+message ListUsersReq {}
+
+message ListUsersRes {
+    UserMessage user = 1;
+}
